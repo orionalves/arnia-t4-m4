@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+
 import { CreateCarDto } from './dto/create-car.dto';
-import { UpdateCarDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
-  create(createCarDto: CreateCarDto) {
-    return 'This action adds a new car';
+  private carsDb = [];
+
+  create(payload: CreateCarDto) {
+    const id = this.carsDb.length + 1;
+
+    const newCar = {
+      id,
+      name: payload.name,
+      color: payload.color,
+    };
+
+    this.carsDb.push(newCar);
+
+    return newCar;
   }
 
-  findAll() {
-    return `This action returns all cars`;
+  find() {
+    return this.carsDb;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} car`;
-  }
+  async show(id: number) {
+    try {
+      const carFound = this.carsDb.find((car) => car.id == id);
 
-  update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
-  }
+      if (!carFound) {
+        throw new NotFoundException(`A car with id: ${id} not found.`);
+      }
 
-  remove(id: number) {
-    return `This action removes a #${id} car`;
+      return carFound;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
   }
 }
