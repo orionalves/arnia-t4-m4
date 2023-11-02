@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -21,21 +22,21 @@ export class CustomersController {
   }
 
   @Get()
-  findAll() {
-    return this.customersService.findAll();
+  findAll(@Query('age') age: string) {
+    return this.customersService.findAll(+age);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.customersService.findOne(+id);
+  findOne(@Param('id') uuid: string) {
+    return this.customersService.findOne(uuid);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') uuid: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    return this.customersService.update(+id, updateCustomerDto);
+    return this.customersService.update(uuid, updateCustomerDto);
   }
 
   @Delete(':id')

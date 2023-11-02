@@ -22,16 +22,30 @@ export class CustomersService {
     return customer;
   }
 
-  findAll() {
-    return this.customers;
+  findAll(age: number) {
+    let filteredCustomers = [...this.customers];
+
+    if (age) {
+      filteredCustomers = filteredCustomers.filter(
+        (customer) => customer.age === age,
+      );
+    }
+
+    return filteredCustomers;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
+  findOne(uuid: string) {
+    const customer = this.customers.find((cust) => cust.uuid === uuid);
+
+    return customer;
   }
 
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
+  update(uuid: string, updateCustomerDto: UpdateCustomerDto) {
+    this.customers.forEach((customer) => {
+      if (customer.uuid === uuid) {
+        Object.assign(customer, updateCustomerDto);
+      }
+    });
   }
 
   remove(id: number) {
