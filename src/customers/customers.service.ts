@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -48,7 +48,15 @@ export class CustomersService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} customer`;
+  remove(uuid: string) {
+    const customerIndex = this.customers.findIndex(
+      (customer) => customer.uuid === uuid,
+    );
+
+    if (customerIndex === -1) {
+      throw new NotFoundException('Não encontrado');
+    }
+
+    this.customers.splice(customerIndex, 1);
   }
 }

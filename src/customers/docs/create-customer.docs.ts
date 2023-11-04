@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Customer {
-  @ApiProperty({
-    example: '2e1cd660-0055-417a-94f7-5a3f88683574',
-    description: 'Identifier of a customer',
-  })
-  uuid: string;
-
+export class CreateCustomerDocs {
   @ApiProperty({
     example: 'Vitor',
     description: 'First name of a customer',
@@ -16,6 +10,7 @@ export class Customer {
   @ApiProperty({
     example: 'Reis',
     description: 'Last name of a customer',
+    nullable: true,
   })
   lastName: string;
 
@@ -24,10 +19,4 @@ export class Customer {
     description: 'Age of a customer',
   })
   age: number;
-
-  @ApiProperty({
-    example: new Date(),
-    description: 'Creation date of a customer',
-  })
-  createdAt: Date;
 }
