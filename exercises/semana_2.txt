@@ -1,0 +1,13 @@
+SEMANA 2.
+
+//// SQL - POSTGRES
+
+06/11.
+
+1- 
+
+a) Fazer a instalação do Postgresql em sua máquina.
+b) Acessar a shell do Postgresql.
+c) Listar os usuários.
+
+** Desafio -> Criar o primeiro banco de dados e listá-lo.
