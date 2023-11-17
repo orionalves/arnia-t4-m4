@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
@@ -10,5 +10,10 @@ export class CarsController {
   @Post()
   async create(@Body() payload: CreateCarDto) {
     return await this.carsService.create(payload);
+  }
+
+  @Get()
+  async find() {
+    return await this.carsService.find();
   }
 }

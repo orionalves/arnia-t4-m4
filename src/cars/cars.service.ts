@@ -23,4 +23,12 @@ export class CarsService {
       throw new HttpException(error.message, error.status);
     }
   }
+
+  async find() {
+    try {
+      return await this.carsRepository.find();
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
 }
