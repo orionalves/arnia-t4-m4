@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -38,5 +41,11 @@ export class CarsController {
     @Body() payload: UpdateCarDto,
   ) {
     return await this.carsService.update(id, payload);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return await this.carsService.delete(id);
   }
 }

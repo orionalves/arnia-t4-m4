@@ -58,4 +58,16 @@ export class CarsService {
       throw new HttpException(error.message, error.status);
     }
   }
+
+  async delete(id: number) {
+    try {
+      await this.show(id);
+
+      await this.carsRepository.delete(id);
+
+      return { result: 'Car deleted.' };
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
 }
