@@ -10,15 +10,15 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false, length: 50, unique: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 }

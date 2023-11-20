@@ -1,19 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    try {
+      const user = this.userRepository.create(createUserDto);
+      await this.userRepository.save(user);
+
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          message: error,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    try {
+      const user = await this.userRepository.findOneByOrFail({ id });
+      return user;
+    } catch (error) {
+      throw new NotFoundException();
+    }
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
