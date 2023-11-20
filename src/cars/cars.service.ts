@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -27,6 +27,20 @@ export class CarsService {
   async find(brand?: string) {
     try {
       return await this.carsRepository.find({ where: { brand } });
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async show(id: number) {
+    try {
+      const carFound = await this.carsRepository.findOneBy({ id });
+
+      if (!carFound) {
+        throw new NotFoundException(`A car with this id: ${id} not found.`);
+      }
+
+      return carFound;
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }
