@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
@@ -13,7 +13,7 @@ export class CarsController {
   }
 
   @Get()
-  async find() {
-    return await this.carsService.find();
+  async find(@Query('brand') brand?: string) {
+    return await this.carsService.find(brand);
   }
 }

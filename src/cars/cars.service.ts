@@ -24,9 +24,9 @@ export class CarsService {
     }
   }
 
-  async find() {
+  async find(brand?: string) {
     try {
-      return await this.carsRepository.find();
+      return await this.carsRepository.find({ where: { brand } });
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }
