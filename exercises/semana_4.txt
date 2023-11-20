@@ -1,0 +1,11 @@
+SEMANA 4.
+
+20/11.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie uma rota para fazer um update de user pelo id.
+b) Crie uma rota para o soft delete, tornando o isActive do user para false.
+c) Nas rotas que buscam o usuário pelo id, caso ele não exista deve ser retornada uma exceção.
+
+** Desafio -> Faça a documentação das rotas criadas até agora com o Swagger.
