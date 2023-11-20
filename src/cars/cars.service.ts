@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { CreateCarDto } from './dto/create-car.dto';
 import { Car } from '../database/entities';
+import { UpdateCarDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
@@ -41,6 +42,18 @@ export class CarsService {
       }
 
       return carFound;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async update(id: number, payload: UpdateCarDto) {
+    try {
+      await this.show(id);
+
+      await this.carsRepository.update(id, payload);
+
+      return await this.show(id);
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }

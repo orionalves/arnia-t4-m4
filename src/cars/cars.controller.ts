@@ -4,12 +4,14 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
+import { UpdateCarDto } from './dto/update-car.dto';
 
 @Controller('cars')
 export class CarsController {
@@ -28,5 +30,13 @@ export class CarsController {
   @Get(':id')
   async show(@Param('id', ParseIntPipe) id: number) {
     return await this.carsService.show(id);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateCarDto,
+  ) {
+    return await this.carsService.update(id, payload);
   }
 }
