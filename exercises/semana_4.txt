@@ -9,3 +9,15 @@ b) Crie uma rota para o soft delete, tornando o isActive do user para false.
 c) Nas rotas que buscam o usuário pelo id, caso ele não exista deve ser retornada uma exceção.
 
 ** Desafio -> Faça a documentação das rotas criadas até agora com o Swagger.
+
+21/11.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie um método no service de users para buscar um user pelo email, retornando também a senha.
+b) Crie um módulo para auth.
+c) Crie um controller e um service para auth.
+d) Crie uma rota para login, retornando um JWT token. Utilize o @nestjs/jwt.
+
+** Desafio -> Crie um auth guard para proteção das rotas.
+** Desafio -> Crie uma rota GET -> /users/profile utilizando o guard para retornar informações do usuário contido no token.
