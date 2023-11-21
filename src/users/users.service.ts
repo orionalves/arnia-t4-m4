@@ -47,11 +47,49 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      const user = await this.userRepository.findOneBy({ id });
+
+      if (!user) {
+        throw new NotFoundException();
+      }
+
+      await this.userRepository.update(id, updateUserDto);
+
+      return this.userRepository.findOneBy({ id });
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: error.status || HttpStatus.BAD_REQUEST,
+          message: error,
+        },
+        error.status || HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async softDelete(id: number) {
+    try {
+      const user = await this.userRepository.findOneBy({ id });
+
+      if (!user) {
+        throw new NotFoundException();
+      }
+
+      user.isActive = false;
+
+      await this.userRepository.save(user);
+
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: error.status || HttpStatus.BAD_REQUEST,
+          message: error,
+        },
+        error.status || HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }
