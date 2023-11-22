@@ -47,6 +47,25 @@ export class UsersService {
     }
   }
 
+  async findByEmail(email: string) {
+    try {
+      const user = await this.userRepository.findOneOrFail({
+        where: {
+          email,
+        },
+        select: {
+          id: true,
+          email: true,
+          isActive: true,
+          password: true,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new NotFoundException();
+    }
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
       const user = await this.userRepository.findOneBy({ id });
