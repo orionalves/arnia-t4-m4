@@ -28,4 +28,22 @@ export class UsersService {
   async find() {
     return `This action returns all users`;
   }
+
+  async findByEmail(email: string) {
+    try {
+      return await this.usersRepository.findOne({
+        where: { email },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          isActive: true,
+          password: true,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
 }
