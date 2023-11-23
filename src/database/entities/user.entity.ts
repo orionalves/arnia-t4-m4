@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { DriversLicense } from './drivers-license.entity';
 
 @Entity('users')
 export class User {
@@ -28,6 +30,9 @@ export class User {
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
+
+  @OneToOne(() => DriversLicense, (dl) => dl.user)
+  driversLicense: DriversLicense;
 
   @CreateDateColumn()
   createdAt: Date;
