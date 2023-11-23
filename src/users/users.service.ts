@@ -29,6 +29,20 @@ export class UsersService {
     return `This action returns all users`;
   }
 
+  async findById(id: number) {
+    try {
+      return await this.usersRepository.findOne({
+        where: { id },
+        relations: {
+          driversLicense: true,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
   async findByEmail(email: string) {
     try {
       return await this.usersRepository.findOne({
