@@ -32,3 +32,20 @@ c) Crie uma nova resource de Adresses. Todas rotas devem ser protegidas.
 d) Crie uma rota de post de Adresses (faça validações no dto).
 
 ** Desafio -> Crie uma rota de patch de Adresses
+
+23/11.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie uma rota para buscar todos Adresses.
+b) Adicione na entidade Adress o relacionamento 1:1 com user (não pode ser nulo)
+c) Na rota profile do user, modifique para juntamente voltar o Adress do mesmo. (dica: typeORM relations)
+
+2- 
+
+a) Crie uma nova entidade Pet (id, name, age, breed -> todos obrigatórios e user (relacionamento N:1) -> não pode ser nulo)
+b) Rode o projeto e verifique se tabela foi criada corretamente.
+c) Crie uma rota para criação de Pets
+
+** Desafio -> Crie uma rota para buscar um pet pelo id, voltando também as informações do usuário relacionado.
+** Desafio -> Modifique a rota de patch de Adresses para que somente o user pertencente ao Address possa modificá-lo.
