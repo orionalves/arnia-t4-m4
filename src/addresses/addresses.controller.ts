@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
+import { Request as RequestType } from 'express';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
 @Controller('addresses')
@@ -19,8 +21,13 @@ export class AddressesController {
   constructor(private readonly addressesService: AddressesService) {}
 
   @Post()
-  create(@Body() createAddressDto: CreateAddressDto) {
-    return this.addressesService.create(createAddressDto);
+  create(
+    @Request() req: RequestType,
+    @Body() createAddressDto: CreateAddressDto,
+  ) {
+    const user = req['user'];
+
+    return this.addressesService.create(createAddressDto, +user.sub);
   }
 
   @Get()

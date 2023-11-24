@@ -47,6 +47,23 @@ export class UsersService {
     }
   }
 
+  async profile(id: number) {
+    try {
+      const user = await this.userRepository.findOneOrFail({
+        where: {
+          id,
+        },
+        relations: {
+          address: true,
+          pets: true,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new NotFoundException();
+    }
+  }
+
   async findByEmail(email: string) {
     try {
       const user = await this.userRepository.findOneOrFail({

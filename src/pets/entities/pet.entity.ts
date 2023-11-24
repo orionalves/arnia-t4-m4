@@ -3,25 +3,25 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
-export class Address {
+export class Pet {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  street: string;
+  name: string;
 
   @Column()
-  city: string;
+  age: number;
 
-  @Column({ length: 8 })
-  zipCode: string;
+  @Column()
+  breed: string;
 
-  @OneToOne(() => User, (user) => user.address, { nullable: false })
+  @ManyToOne(() => User, (user) => user.pets, { nullable: false })
   @JoinColumn()
   user: User;
 }
