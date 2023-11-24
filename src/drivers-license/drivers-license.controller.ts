@@ -6,13 +6,14 @@ import {
   Param,
   UseGuards,
   Request,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { DriversLicenseService } from './drivers-license.service';
 import { CreateDriversLicenseDto } from './dto/create-drivers-license.dto';
 import { AuthGuard } from '../auth/auth.guard';
 
-@Controller('drivers-license')
+@Controller('drivers-licenses')
 @UseGuards(AuthGuard)
 export class DriversLicenseController {
   constructor(private readonly driversLicenseService: DriversLicenseService) {}
@@ -28,7 +29,7 @@ export class DriversLicenseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.driversLicenseService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: string) {
+    return await this.driversLicenseService.findOne(+id);
   }
 }

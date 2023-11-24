@@ -49,7 +49,7 @@ export class CarsController {
     return await this.carsService.update(id, payload);
   }
 
-  @Patch(':id/buy')
+  @Patch(':id/buy/')
   @UseGuards(AuthGuard)
   async buy(@Param('id', ParseIntPipe) id: number, @Request() req: Request) {
     const { userId } = req['user'];

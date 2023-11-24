@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDriversLicenseDto } from './dto/create-drivers-license.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -35,7 +35,34 @@ export class DriversLicenseService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} driversLicense`;
+  async findOne(id: number) {
+    try {
+      const driversLicense = await this.driversLicenseRepository.findOne({
+        where: { id },
+        relations: {
+          user: true,
+        },
+        select: {
+          id: true,
+          licenseNumber: true,
+          user: {
+            email: true,
+            name: true,
+          },
+        },
+      });
+
+      if (!driversLicense) {
+        throw new NotFoundException(
+          `A driver license with this id: ${id} not found.`,
+        );
+      }
+
+      return driversLicense;
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 }
