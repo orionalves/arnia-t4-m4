@@ -49,6 +49,14 @@ export class CarsController {
     return await this.carsService.update(id, payload);
   }
 
+  @Patch(':id/buy')
+  @UseGuards(AuthGuard)
+  async buy(@Param('id', ParseIntPipe) id: number, @Request() req: Request) {
+    const { userId } = req['user'];
+
+    return await this.carsService.buy(id, userId);
+  }
+
   @Delete(':id')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
