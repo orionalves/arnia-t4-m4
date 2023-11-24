@@ -35,6 +35,7 @@ export class UsersService {
         where: { id },
         relations: {
           driversLicense: true,
+          cars: true,
         },
       });
     } catch (error) {
