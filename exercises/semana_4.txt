@@ -49,3 +49,14 @@ c) Crie uma rota para criação de Pets
 
 ** Desafio -> Crie uma rota para buscar um pet pelo id, voltando também as informações do usuário relacionado.
 ** Desafio -> Modifique a rota de patch de Adresses para que somente o user pertencente ao Address possa modificá-lo.
+
+24/11.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie uma rota de get -> /pets que retorna todos os pets juntamente com uma query para filtrá-los pela breed.
+b) Na rota de get profile adicione também as informações dos pets do usuário logado.
+c) Faça uma rota para update de pets. Obs: Somente o usuário dono do pet pode modificá-lo.
+d) Faça uma rota de get -> /pets/my-pets que retorna somente os pets do usuário logado.
+
+** Desafio -> Documente as rotas criadas até agora com Swagger.
