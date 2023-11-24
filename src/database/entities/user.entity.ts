@@ -4,12 +4,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { DriversLicense } from './drivers-license.entity';
+import { Car } from './car.entity';
 
 @Entity('users')
 export class User {
@@ -33,6 +35,9 @@ export class User {
 
   @OneToOne(() => DriversLicense, (dl) => dl.user)
   driversLicense: DriversLicense;
+
+  @OneToMany(() => Car, (car) => car.user)
+  cars: Car[];
 
   @CreateDateColumn()
   createdAt: Date;

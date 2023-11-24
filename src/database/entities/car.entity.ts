@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('cars')
 export class Car {
@@ -22,6 +24,9 @@ export class Car {
 
   @Column({ type: 'varchar', length: 64, nullable: false })
   brand: string;
+
+  @ManyToOne(() => User, (user) => user.cars)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;
