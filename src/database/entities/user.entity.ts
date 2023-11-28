@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -12,6 +13,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { DriversLicense } from './drivers-license.entity';
 import { Car } from './car.entity';
+import { Auction } from './auction.entity';
 
 @Entity('users')
 export class User {
@@ -38,6 +40,9 @@ export class User {
 
   @OneToMany(() => Car, (car) => car.user)
   cars: Car[];
+
+  @ManyToMany(() => Auction, (auction) => auction.users)
+  auctions: Auction[];
 
   @CreateDateColumn()
   createdAt: Date;
