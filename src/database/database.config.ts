@@ -7,6 +7,7 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { User } from 'src/users/entities/user.entity';
 import { Address } from 'src/addresses/entities/address.entity';
 import { Pet } from 'src/pets/entities/pet.entity';
+import { Event } from 'src/events/entities/event.entity';
 
 export default <TypeOrmModuleAsyncOptions>{
   imports: [ConfigModule],
@@ -21,7 +22,7 @@ export default <TypeOrmModuleAsyncOptions>{
       username: configService.get('DB_USER'),
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
-      entities: [User, Address, Pet],
+      entities: [Address, Pet, Event, User],
       synchronize: true,
     };
   },

@@ -1,9 +1,11 @@
 import { Address } from 'src/addresses/entities/address.entity';
+import { Event } from 'src/events/entities/event.entity';
 import { Pet } from 'src/pets/entities/pet.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -22,6 +24,9 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @ManyToMany(() => Event, (event) => event.participants)
+  events: Event[];
 
   @OneToOne(() => Address, (address) => address.user)
   address: Address;

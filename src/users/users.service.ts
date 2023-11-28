@@ -56,6 +56,7 @@ export class UsersService {
         relations: {
           address: true,
           pets: true,
+          events: true,
         },
       });
       return user;
