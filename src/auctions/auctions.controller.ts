@@ -1,25 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 
 import { AuctionsService } from './auctions.service';
 import { CreateAuctionDto } from './dto/create-auction.dto';
-import { UpdateAuctionDto } from './dto/update-auction.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('auctions')
+@UseGuards(AuthGuard)
 export class AuctionsController {
   constructor(private readonly auctionsService: AuctionsService) {}
 
   @Post()
-  create(@Body() createAuctionDto: CreateAuctionDto) {
-    return this.auctionsService.create(createAuctionDto);
+  async create(@Body() payload: CreateAuctionDto) {
+    return await this.auctionsService.create(payload);
   }
 
   @Get()
-  findAll() {
-    return this.auctionsService.findAll();
+  async findAll() {
+    return await this.auctionsService.findAll();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuctionDto: UpdateAuctionDto) {
-    return this.auctionsService.update(+id, updateAuctionDto);
+  @Patch(':id/participate')
+  async update(@Param('id') id: string, @Request() req: Request) {
+    const { userId } = req['user'];
+
+    return await this.auctionsService.update(+id, userId);
   }
 }
