@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { CarPhotos } from './car-photos.entity';
 
 @Entity('cars')
 export class Car {
@@ -27,6 +29,9 @@ export class Car {
 
   @ManyToOne(() => User, (user) => user.cars)
   user: User;
+
+  @OneToMany(() => CarPhotos, (cp) => cp.car)
+  photos: CarPhotos[];
 
   @CreateDateColumn()
   createdAt: Date;
