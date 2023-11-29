@@ -7,13 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request,
 } from '@nestjs/common';
-import { Request as RequestType } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { CurrentUserDto } from 'src/auth/dto/current-user.dto';
 
 @UseGuards(AuthGuard)
 @Controller('addresses')
@@ -22,11 +22,9 @@ export class AddressesController {
 
   @Post()
   create(
-    @Request() req: RequestType,
+    @CurrentUser() user: CurrentUserDto,
     @Body() createAddressDto: CreateAddressDto,
   ) {
-    const user = req['user'];
-
     return this.addressesService.create(createAddressDto, +user.sub);
   }
 

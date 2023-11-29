@@ -7,13 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
-  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Request } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { CurrentUserDto } from 'src/auth/dto/current-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -31,8 +31,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  profile(@Req() req: Request) {
-    const user = req['user'];
+  profile(@CurrentUser() user: CurrentUserDto) {
     return this.usersService.profile(+user.sub);
   }
 
