@@ -37,8 +37,12 @@ export class CarsController {
   }
 
   @Get()
-  async find(@Request() req: Request, @Query('brand') brand?: string) {
-    return await this.carsService.find(brand);
+  async find(
+    @Query('page') page = 1,
+    @Query('limit') limit = 5,
+    @Query('brand') brand?: string,
+  ) {
+    return await this.carsService.find(page, limit, brand);
   }
 
   @Get(':id')

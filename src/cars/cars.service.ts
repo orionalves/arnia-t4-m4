@@ -61,14 +61,26 @@ export class CarsService {
     }
   }
 
-  async find(brand?: string) {
+  async find(page: number, limit: number, brand?: string) {
     try {
-      return await this.carsRepository.find({
+      const cars = await this.carsRepository.find({
         where: { brand },
         relations: {
           photos: true,
         },
+        skip: (page - 1) * limit,
+        take: limit,
+        order: {
+          year: 'ASC',
+        },
       });
+
+      return {
+        currentPage: +page,
+        pageSize: +limit,
+        quantity: cars.length,
+        data: cars,
+      };
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }
