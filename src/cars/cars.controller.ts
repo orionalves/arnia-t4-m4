@@ -71,7 +71,7 @@ export class CarsController {
     return await this.carsService.delete(id);
   }
 
-  @Post('upload-photos')
+  @Post(':id/upload-photos')
   @UseGuards(AuthGuard)
   @UseInterceptors(
     FileInterceptor('file', {
@@ -96,14 +96,11 @@ export class CarsController {
       },
     }),
   )
-  uploadPhoto(@UploadedFile() file: Express.Multer.File) {
-    if (!file) {
-      throw new BadRequestException('File is not an image.');
-    }
-
-    const fileUrl = `http://localhost:3001/v1/cars/photos/${file.filename}`;
-
-    return { fileUrl };
+  async uploadPhoto(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return await this.carsService.addPhoto(id, file);
   }
 
   @Get('photos/:filename')
