@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  Res,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -14,6 +17,9 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { CurrentUserDto } from 'src/auth/dto/current-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { Response } from 'express';
 
 @Controller('events')
 export class EventsController {
@@ -28,6 +34,42 @@ export class EventsController {
   @Post(':id/partipate')
   parcipate(@Param('id') id: string, @CurrentUser() user: CurrentUserDto) {
     return this.eventsService.partipate(+id, +user.sub);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post(':id/upload-image')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename(req, file, callback) {
+          const [name, extension] = file.originalname.split('.');
+
+          const tempName =
+            name.split(' ').join('_') + '_' + Date.now() + '.' + extension;
+
+          callback(null, tempName);
+        },
+      }),
+      fileFilter(req, file, callback) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+          return callback(null, false);
+        }
+
+        return callback(null, true);
+      },
+    }),
+  )
+  uploadImage(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return { filename: file.filename };
+  }
+
+  @Get('image/:filename')
+  getImage(@Param('filename') filename: string, @Res() res: Response) {
+    res.sendFile(filename, { root: './uploads' });
   }
 
   @Get()
