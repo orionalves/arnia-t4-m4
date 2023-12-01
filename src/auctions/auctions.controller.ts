@@ -13,9 +13,10 @@ import { AuctionsService } from './auctions.service';
 import { CreateAuctionDto } from './dto/create-auction.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../database/entities';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auctions')
+@ApiTags('auctions')
 @UseGuards(AuthGuard)
 export class AuctionsController {
   constructor(private readonly auctionsService: AuctionsService) {}

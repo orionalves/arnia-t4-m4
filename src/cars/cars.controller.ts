@@ -25,8 +25,10 @@ import { AuthGuard } from '../auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('cars')
+@ApiTags('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 

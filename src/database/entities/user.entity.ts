@@ -14,6 +14,7 @@ import * as bcrypt from 'bcrypt';
 import { DriversLicense } from './drivers-license.entity';
 import { Car } from './car.entity';
 import { Auction } from './auction.entity';
+import { RoleEnum } from '../../enums/role.enum';
 
 @Entity('users')
 export class User {
@@ -31,6 +32,9 @@ export class User {
 
   @Column({ type: 'int', nullable: true })
   age: number;
+
+  @Column({ type: 'enum', enum: RoleEnum, default: RoleEnum.user })
+  role: RoleEnum;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;

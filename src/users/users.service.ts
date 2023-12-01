@@ -26,7 +26,12 @@ export class UsersService {
   }
 
   async find() {
-    return `This action returns all users`;
+    try {
+      return await this.usersRepository.find();
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async findById(id: number) {
