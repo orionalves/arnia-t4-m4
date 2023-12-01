@@ -64,7 +64,7 @@ export class EventsController {
     @Param('id') id: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    return { filename: file.filename };
+    return this.eventsService.saveImage(+id, file);
   }
 
   @Get('image/:filename')

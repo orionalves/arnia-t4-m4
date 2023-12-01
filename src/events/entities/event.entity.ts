@@ -3,9 +3,11 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
+import { Image } from './image.entity';
 
 @Entity()
 export class Event {
@@ -21,4 +23,7 @@ export class Event {
   @ManyToMany(() => User, (user) => user.events)
   @JoinTable()
   participants: User[];
+
+  @OneToMany(() => Image, (image) => image.event)
+  images: Image[];
 }

@@ -11,6 +11,8 @@ import { UsersService } from 'src/users/users.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entities/event.entity';
+import { Image } from './entities/image.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class EventsService {
@@ -18,7 +20,12 @@ export class EventsService {
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
 
+    @InjectRepository(Image)
+    private imageRepository: Repository<Image>,
+
     private userService: UsersService,
+
+    private configService: ConfigService,
   ) {}
 
   async create(createEventDto: CreateEventDto) {
@@ -59,6 +66,39 @@ export class EventsService {
     }
   }
 
+  async saveImage(eventId: number, file: Express.Multer.File) {
+    try {
+      // verificar se o evento existe
+      const event = await this.findOne(eventId);
+
+      // verificar se o arquivo existe
+      if (!file) {
+        throw new BadRequestException('File doesnt exist');
+      }
+
+      // criar a imagem e vincular ao evento
+      const url =
+        this.configService.get('APP_DOMAIN') + '/events/image/' + file.filename;
+
+      const image = this.imageRepository.create({
+        imageLink: url,
+        event,
+      });
+
+      await this.imageRepository.save(image);
+
+      return image;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: error?.status || HttpStatus.BAD_REQUEST,
+          message: error,
+        },
+        error?.status || HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   findAll() {
     return this.eventRepository.find();
   }
@@ -69,6 +109,7 @@ export class EventsService {
         where: { id },
         relations: {
           participants: true,
+          images: true,
         },
       });
 
