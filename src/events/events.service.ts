@@ -13,6 +13,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entities/event.entity';
 import { Image } from './entities/image.entity';
 import { ConfigService } from '@nestjs/config';
+import { UpdateDateEvent } from './dto/update-date-event.dto';
 
 @Injectable()
 export class EventsService {
@@ -121,6 +122,26 @@ export class EventsService {
 
   update(id: number, updateEventDto: UpdateEventDto) {
     return `This action updates a #${id} event`;
+  }
+
+  async updateDate(id: number, updateDateEventDto: UpdateDateEvent) {
+    try {
+      const event = await this.findOne(id);
+
+      event.eventDate = updateDateEventDto.eventDate;
+
+      await this.eventRepository.save(event);
+
+      return event;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: error?.status || HttpStatus.BAD_REQUEST,
+          message: error,
+        },
+        error?.status || HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   remove(id: number) {

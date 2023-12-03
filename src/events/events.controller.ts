@@ -20,6 +20,7 @@ import { CurrentUserDto } from 'src/auth/dto/current-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Response } from 'express';
+import { UpdateDateEvent } from './dto/update-date-event.dto';
 
 @Controller('events')
 export class EventsController {
@@ -80,6 +81,14 @@ export class EventsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.eventsService.findOne(+id);
+  }
+
+  @Patch(':id/date')
+  updateDate(
+    @Param('id') id: string,
+    @Body() updateDateEventDto: UpdateDateEvent,
+  ) {
+    return this.eventsService.updateDate(+id, updateDateEventDto);
   }
 
   @Patch(':id')
