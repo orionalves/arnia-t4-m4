@@ -1,6 +1,3 @@
-import { Address } from 'src/addresses/entities/address.entity';
-import { Event } from 'src/events/entities/event.entity';
-import { Pet } from 'src/pets/entities/pet.entity';
 import {
   Column,
   CreateDateColumn,
@@ -10,7 +7,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
+import { Address } from '../../addresses/entities/address.entity';
+import { Event } from '../../events/entities/event.entity';
+import { Pet } from '../../pets/entities/pet.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
