@@ -1,0 +1,7 @@
+SEMANA 7.
+
+11/12.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie um teste para a função de upload de arquivos no service.
