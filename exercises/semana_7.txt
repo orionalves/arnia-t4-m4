@@ -5,3 +5,9 @@ SEMANA 7.
 1- Ainda sobre o projeto criado anteriormente.
 
 a) Crie um teste para a função de upload de arquivos no service.
+
+12/12.
+
+1- Ainda sobre o projeto criado anteriormente.
+
+a) Crie testes e2e para o users. (não será necessário a conexão real com o banco.)
