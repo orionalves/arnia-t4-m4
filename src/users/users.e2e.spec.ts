@@ -29,6 +29,10 @@ describe('Users Controller (e2e)', () => {
     await app.init();
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   it('Should be defined', () => {
     expect(app).toBeDefined();
   });
