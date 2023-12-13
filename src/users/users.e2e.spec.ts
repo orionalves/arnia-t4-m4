@@ -3,12 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 
 import { UsersModule } from './users.module';
-import {
-  authGuardMock,
-  createUserMock,
-  usersRepositoryMock,
-  usersServiceMock,
-} from '../testing';
+import { authGuardMock, createUserMock, usersRepositoryMock } from '../testing';
 import { AuthGuard } from '../auth/auth.guard';
 
 describe('Users Controller (e2e)', () => {
