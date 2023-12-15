@@ -1,0 +1,9 @@
+Desafio para o recesso:
+
+Crie uma Api em NestJS responsável por fazer o gerenciamento de um e-commerce. Use sua abstração e aplique todos conhecimentos aprendidos até hoje.
+
+Pontos obrigatórios: 
+1- Deve haver pelo menos 3 entidades e pelo menos 2 tipos de relações entre tabelas.
+2- Deve haver sistema de autenticação.
+3- Deve haver pelo menos 1 soft delete.
+4- O usuário poderá comprar um produto.
