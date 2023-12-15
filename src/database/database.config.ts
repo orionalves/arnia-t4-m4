@@ -4,11 +4,11 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { User } from 'src/users/entities/user.entity';
-import { Address } from 'src/addresses/entities/address.entity';
-import { Pet } from 'src/pets/entities/pet.entity';
-import { Event } from 'src/events/entities/event.entity';
-import { Image } from 'src/events/entities/image.entity';
+import { User } from '../users/entities/user.entity';
+import { Address } from '../addresses/entities/address.entity';
+import { Pet } from '../pets/entities/pet.entity';
+import { Event } from '../events/entities/event.entity';
+import { Image } from '../events/entities/image.entity';
 
 export default <TypeOrmModuleAsyncOptions>{
   imports: [ConfigModule],

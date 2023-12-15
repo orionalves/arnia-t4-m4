@@ -9,12 +9,12 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { CurrentUserDto } from 'src/auth/dto/current-user.dto';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { CurrentUserDto } from '../auth/dto/current-user.dto';
 
 @Controller('pets')
 export class PetsController {
