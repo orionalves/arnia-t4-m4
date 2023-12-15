@@ -2,6 +2,7 @@ import {
   BeforeInsert,
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -28,14 +29,14 @@ export class UserEntity {
   @Column({ type: 'enum', enum: RoleEnum, nullable: false })
   role: RoleEnum;
 
-  @Column({ type: 'boolean', nullable: false, default: true })
-  isActive: boolean;
-
   @CreateDateColumn({ type: 'date' })
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'date' })
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @BeforeInsert()
   async passwordHash() {
