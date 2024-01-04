@@ -4,13 +4,17 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { BadRequestException } from '@nestjs/common';
 
 import { RoleEnum } from '../../enums/role.enum';
-import { BadRequestException } from '@nestjs/common';
+import { SubjectEntity } from './subject.entity';
 
 @Entity('Users')
 export class UserEntity {
@@ -37,6 +41,15 @@ export class UserEntity {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany(() => SubjectEntity, (subject) => subject.instructor)
+  subjects: SubjectEntity[];
+
+  @ManyToMany(() => SubjectEntity, (subject) => subject.students, {
+    cascade: true,
+  })
+  @JoinTable()
+  studentSubjects: SubjectEntity[];
 
   @BeforeInsert()
   async passwordHash() {
