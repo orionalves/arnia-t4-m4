@@ -53,7 +53,7 @@ export class HousesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.housesService.remove(+id);
+  softDelete(@Param('id') id: string) {
+    return this.housesService.softDelete(+id);
   }
 }

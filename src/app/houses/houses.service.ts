@@ -113,11 +113,38 @@ export class HousesService {
     }
   }
 
-  update(id: number, updateHouseDto: UpdateHouseDto) {
-    return `This action updates a #${id} house`;
+  async update(id: number, updateHouseDto: UpdateHouseDto) {
+    try {
+      const { affected } = await this.houseRepository.update(
+        id,
+        updateHouseDto,
+      );
+
+      if (affected === 0) {
+        throw new NotFoundException();
+      }
+
+      return await this.findOne(id);
+    } catch (error) {
+      throw new HttpException(
+        error?.message,
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} house`;
+  async softDelete(id: number) {
+    try {
+      const { affected } = await this.houseRepository.softDelete(id);
+
+      if (affected === 0) {
+        throw new NotFoundException();
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message,
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
