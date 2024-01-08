@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CreateSubjectDto } from './dto/create-subject.dto';
-import { SubjectEntity } from '../database/entities';
+import { SubjectEntity, UserEntity } from '../database/entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -58,6 +58,49 @@ export class SubjectsService {
       }
 
       return subject;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async showClass(id: number) {
+    try {
+      const subject = await this.subjectRepository.findOne({
+        where: { id },
+        relations: { instructor: true, students: true },
+      });
+
+      if (!subject) {
+        throw new NotFoundException(`A subject with this id: ${id} not found.`);
+      }
+
+      return subject;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async addStudent(id: number, currentUser: UserEntity) {
+    try {
+      const subject = await this.subjectRepository.findOne({
+        where: { id },
+        relations: { students: true },
+      });
+
+      if (!subject) {
+        throw new NotFoundException(`A subject with this id: ${id} not found.`);
+      }
+
+      subject.students.push(currentUser);
+
+      await this.subjectRepository.save(subject);
+
+      return await this.subjectRepository.findOne({
+        where: { id },
+        relations: { students: true },
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, error.status);

@@ -38,11 +38,18 @@ export class SubjectsController {
     return await this.subjectsService.show(id);
   }
 
+  @Roles(RoleEnum.admin, RoleEnum.instructor)
+  @Get(':id/students')
+  async showClass(@Param('id', ParseIntPipe) id: number) {
+    return await this.subjectsService.showClass(id);
+  }
+
+  @Roles(RoleEnum.student)
   @Post(':id/students')
   async addStudent(
     @Param('id', ParseIntPipe) id: number,
     @CurrentUser() currentUser: UserEntity,
   ) {
-    console.log(currentUser);
+    return await this.subjectsService.addStudent(id, currentUser);
   }
 }
