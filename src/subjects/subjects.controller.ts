@@ -6,6 +6,9 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
+  Delete,
+  HttpCode,
 } from '@nestjs/common';
 
 import { SubjectsService } from './subjects.service';
@@ -16,6 +19,7 @@ import { Roles } from '../auth/decorators/role.decorator';
 import { RoleEnum } from '../enums/role.enum';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { UserEntity } from '../database/entities';
+import { UpdateSubjectDto } from './dto/update-subject.dto';
 
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('subjects')
@@ -51,5 +55,30 @@ export class SubjectsController {
     @CurrentUser() currentUser: UserEntity,
   ) {
     return await this.subjectsService.addStudent(id, currentUser);
+  }
+
+  @Roles(RoleEnum.instructor)
+  @Post(':id/instructors')
+  async addInstructor(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: UserEntity,
+  ) {
+    return await this.subjectsService.addInstructor(id, currentUser);
+  }
+
+  @Roles(RoleEnum.admin)
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateSubjectDto,
+  ) {
+    return await this.subjectsService.update(id, payload);
+  }
+
+  @Roles(RoleEnum.admin)
+  @HttpCode(202)
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    await this.subjectsService.delete(id);
   }
 }

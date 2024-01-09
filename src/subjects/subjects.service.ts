@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { SubjectEntity, UserEntity } from '../database/entities';
 import { Repository } from 'typeorm';
+import { UpdateSubjectDto } from './dto/update-subject.dto';
 
 @Injectable()
 export class SubjectsService {
@@ -97,10 +98,71 @@ export class SubjectsService {
 
       await this.subjectRepository.save(subject);
 
-      return await this.subjectRepository.findOne({
+      return subject;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async addInstructor(id: number, currentUser: UserEntity) {
+    try {
+      const subject = await this.subjectRepository.findOne({
         where: { id },
-        relations: { students: true },
+        relations: {
+          instructor: true,
+        },
       });
+
+      if (!subject) {
+        throw new NotFoundException(`A subject with this id: ${id} not found.`);
+      }
+
+      if (subject.instructor) {
+        throw new BadRequestException(
+          'This subject already has an instructor.',
+        );
+      }
+
+      this.subjectRepository.merge(subject, { instructor: currentUser });
+
+      await this.subjectRepository.save(subject);
+
+      return subject;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async update(id: number, payload: UpdateSubjectDto) {
+    try {
+      const subject = await this.subjectRepository.findOne({ where: { id } });
+
+      if (!subject) {
+        throw new NotFoundException(`A subject with this id: ${id} not found.`);
+      }
+
+      await this.subjectRepository.save(Object.assign(subject, payload));
+
+      return subject;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      if (!(await this.subjectRepository.exist({ where: { id } }))) {
+        throw new NotFoundException(`A subject with this id: ${id} not found.`);
+      }
+
+      await this.subjectRepository.delete(id);
+
+      return {
+        message: 'Subject deleted successfully.',
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, error.status);
