@@ -6,3 +6,10 @@ SEMANA 9.
 
 a) Teste o serviço de register de user.
 b) Teste o serviço de login.
+
+09/01.
+
+1- ...
+
+a) Teste o serviço de get all users.
+b) Teste o serviço de get user by id.
