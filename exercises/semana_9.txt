@@ -13,3 +13,10 @@ b) Teste o serviço de login.
 
 a) Teste o serviço de get all users.
 b) Teste o serviço de get user by id.
+
+10/01.
+
+1- ...
+
+a) Crie uma rota de delete user para apagar o usuário do banco. (Faça modificações nas entidades se nescessário)
+b) Teste esse serviço de delete de user.
