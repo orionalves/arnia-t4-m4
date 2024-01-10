@@ -10,6 +10,7 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
@@ -21,6 +22,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { UserEntity } from '../database/entities';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 
+@ApiTags('Subjects')
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('subjects')
 export class SubjectsController {
@@ -79,6 +81,6 @@ export class SubjectsController {
   @HttpCode(202)
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
-    await this.subjectsService.delete(id);
+    return await this.subjectsService.delete(id);
   }
 }

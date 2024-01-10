@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -16,6 +17,7 @@ import { RolesGuard } from '../auth/guards/roles-guard';
 import { Roles } from '../auth/decorators/role.decorator';
 import { RoleEnum } from '../enums/role.enum';
 
+@ApiTags('Users')
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('users')
 export class UsersController {

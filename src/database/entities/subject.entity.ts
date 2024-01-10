@@ -33,6 +33,8 @@ export class SubjectEntity {
   @ManyToOne(() => UserEntity, (user) => user.subjects)
   instructor: UserEntity;
 
-  @ManyToMany(() => UserEntity, (user) => user.studentSubjects)
+  @ManyToMany(() => UserEntity, (user) => user.studentSubjects, {
+    onDelete: 'CASCADE',
+  })
   students: UserEntity[];
 }
