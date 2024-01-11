@@ -8,13 +8,13 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { RoleGuard } from 'src/guards/role.guard';
+import { AuthGuard } from '../../guards/auth.guard';
+import { RoleGuard } from '../../guards/role.guard';
 import { HousesService } from './houses.service';
 import { CreateHouseDto } from './dto/create-house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
-import { Roles } from 'src/decorators/roles.decorator';
-import { USER_ROLE } from 'src/enums/user-role.enum';
+import { Roles } from '../../decorators/roles.decorator';
+import { USER_ROLE } from '../../enums/user-role.enum';
 import { BuyHouseDto } from './dto/buy-house.dto';
 
 @Controller('houses')

@@ -9,12 +9,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { House } from 'src/databases/entities/House.entity';
+import { House } from '../../databases/entities/House.entity';
 import { CreateHouseDto } from './dto/create-house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
 import { UsersService } from '../users/users.service';
 import { BuyHouseDto } from './dto/buy-house.dto';
-import { USER_ROLE } from 'src/enums/user-role.enum';
+import { USER_ROLE } from '../../enums/user-role.enum';
 
 @Injectable()
 export class HousesService {

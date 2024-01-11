@@ -68,7 +68,26 @@ export class UsersService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    try {
+      if (!id) {
+        throw new BadRequestException('Id must be a integer');
+      }
+
+      const { affected } = await this.userRepostory.delete(id);
+
+      if (affected === 0) {
+        throw new NotFoundException('User not found');
+      }
+
+      return {
+        message: 'User deleted with success!!',
+      };
+    } catch (error) {
+      throw new HttpException(
+        error?.message || 'Server error',
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
