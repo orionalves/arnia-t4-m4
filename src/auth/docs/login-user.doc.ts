@@ -4,7 +4,7 @@ export class LoginUserDoc {
   @ApiProperty({
     type: String,
     description: 'An email for user login.',
-    default: 'lf@gmail.com',
+    example: 'lf@gmail.com',
     required: true,
   })
   email: string;
@@ -12,7 +12,7 @@ export class LoginUserDoc {
   @ApiProperty({
     type: String,
     description: 'An password for user login.',
-    default: '1245',
+    example: '1245',
     required: true,
   })
   password: string;

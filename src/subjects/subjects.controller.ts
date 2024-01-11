@@ -10,7 +10,7 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
@@ -23,6 +23,7 @@ import { UserEntity } from '../database/entities';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 
 @ApiTags('Subjects')
+@ApiBearerAuth()
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('subjects')
 export class SubjectsController {

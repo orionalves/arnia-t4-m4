@@ -1,73 +1,57 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Descrição
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Bem vindos à aplicação Edusync. Esse projeto tem como objetivo o ensino de alunos da escola Arnia de programação.
+Ele foi contruído pensando no gerenciamento de um sistema de ensino onde um usuário pode ser administrador, que gerencia matérias, instrutores e alunos, instrutor, que ministra as aulas, e também estudante que assiste as aulas ministradas. Temos a documentação do projeto que pode ser acessada em [DOC](http://localhost:3001/v1/docs).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias
 
-## Description
+- [Nestjs](https://nestjs.com/): Utilizado como framework backend, trabalhando por debaixo dos panos com Nodejs e Express.
+- [Postgresql](https://www.postgresql.org/): Banco de dados relacional utilizado para armazenar informações do projeto.
+- [TypeORM](https://typeorm.io/): ORM utilizado para comunicação com banco de dados.
+- [Swagger](https://swagger.io/https://swagger.io/): Utilizado para documentação de rotas e seus métodos atrelados juntamente com os respectivos payloads.
+- [Class-Validator](https://www.npmjs.com/package/class-validator?activeTab=readme): Usado para validações de payloads da aplicação.
+- [Jest](https://jestjs.io/pt-BR/): Ferramenta de teste escolhida para realização e validação de serviços, rotas e módulos da aplicação.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Instalando e rodando o projeto.
 
-## Installation
+Primeiramente será necessária a instalação das bibliotecas presentes no projeto, para isso rode o comando:
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Running the app
+Após a instalação, para rodar o projeto em modo de desenvolvimento:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Test
+Já para o modo de produção, rode em sequência:
 
 ```bash
-# unit tests
-$ npm run test
+npm run build
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:prod
 ```
 
-## Support
+## Teste
+
+Para rodar os testes:
+
+```bash
+npm run test
+```
+
+## Suporte
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## Contato
 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+## Licença
 
 Nest is [MIT licensed](LICENSE).
