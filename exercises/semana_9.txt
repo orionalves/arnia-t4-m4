@@ -20,3 +20,10 @@ b) Teste o serviço de get user by id.
 
 a) Crie uma rota de delete user para apagar o usuário do banco. (Faça modificações nas entidades se nescessário)
 b) Teste esse serviço de delete de user.
+
+11/01.
+
+1- ...
+
+a) Teste o serviço de patch de user.
+b) Teste o serviço de post houses.
