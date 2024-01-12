@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { userRepositoryMock } from '../../testing/users/user-repository.mock';
 import { userMock, usersMock } from '../../testing/users/users.mock';
-import { NotFoundException } from '@nestjs/common';
+import { userUpdatedMock } from '../../testing/users/user-update.dto.mock';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -57,6 +58,14 @@ describe('UsersService', () => {
       const result = await service.remove(1);
 
       expect(result).toEqual({ message: 'User deleted with success!!' });
+    });
+  });
+
+  describe('Update', () => {
+    it('Should return updated user data', async () => {
+      const result = await service.update(1, userUpdatedMock);
+
+      expect(result).toEqual(userMock);
     });
   });
 });

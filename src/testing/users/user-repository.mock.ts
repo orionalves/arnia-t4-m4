@@ -11,5 +11,6 @@ export const userRepositoryMock = {
     findOneByOrFail: jest.fn().mockResolvedValue(userMock),
     findOneOrFail: jest.fn().mockResolvedValue(userMock),
     delete: jest.fn().mockResolvedValue({ affected: 1 }),
+    update: jest.fn().mockResolvedValue({ affected: 1 }),
   },
 };
