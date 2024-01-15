@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import {
   createUserMock,
   jwtServiceMock,
+  loginPayloadMock,
+  loginResponseMock,
   usersListMock,
   usersRepositoryMock,
 } from '../testing';
@@ -28,6 +30,14 @@ describe('Auth Service', () => {
       const newUser = await authService.register(createUserMock);
 
       expect(newUser).toEqual(usersListMock[0]);
+    });
+  });
+
+  describe('Login', () => {
+    it('Should return a jwt token.', async () => {
+      const result = await authService.login(loginPayloadMock);
+
+      expect(result).toEqual(loginResponseMock);
     });
   });
 });
