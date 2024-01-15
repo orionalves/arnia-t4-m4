@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 import { HousesService } from './houses.service';
 import { UsersService } from '../users/users.service';
 import { userRepositoryMock } from '../../testing/users/user-repository.mock';
-import { houseMock } from '../../testing/houses/houses.mock';
+import { houseMock, housesMock } from '../../testing/houses/houses.mock';
 import { houseCreateDtoMock } from '../../testing/houses/house-create.dto.mock';
 import { houseRepositoryMock } from '../../testing/houses/house-repository.mock';
 
@@ -31,6 +32,28 @@ describe('HousesService', () => {
       const result = await service.create(houseCreateDtoMock);
 
       expect(result).toEqual(houseMock);
+    });
+  });
+
+  describe('FindAll', () => {
+    it('Should return an list of houses', async () => {
+      const result = await service.findAll();
+      expect(result).toEqual(housesMock);
+    });
+  });
+
+  describe('FindOne', () => {
+    it('Should return a house', async () => {
+      const result = await service.findOne(1);
+      expect(result).toEqual(houseMock);
+    });
+
+    it('Should return a NotFound error', async () => {
+      jest
+        .spyOn(houseRepositoryMock.useValue, 'findOneOrFail')
+        .mockRejectedValueOnce(false as never);
+      const result = service.findOne(1);
+      expect(result).rejects.toThrow(NotFoundException);
     });
   });
 });
