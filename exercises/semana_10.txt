@@ -1,0 +1,8 @@
+SEMANA 10.
+
+15/01.
+
+1- ... Teste de controller
+
+a) Teste o controller de register user
+b) Teste o controller de login
