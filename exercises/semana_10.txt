@@ -6,3 +6,10 @@ SEMANA 10.
 
 a) Teste o controller de register user
 b) Teste o controller de login
+
+16/01.
+
+1- ...
+
+a) Teste o controller de get all users.
+b) Teste o controller de get user by id.
