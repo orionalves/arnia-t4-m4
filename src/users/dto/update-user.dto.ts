@@ -7,5 +7,5 @@ export class UpdateUserDto extends PartialType(RegisterUserDto) {
   @IsEmpty({
     message: 'password should not exists.',
   })
-  password: string;
+  password?: string;
 }

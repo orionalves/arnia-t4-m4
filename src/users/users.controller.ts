@@ -44,7 +44,7 @@ export class UsersController {
   })
   @Roles(RoleEnum.admin)
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.findOne(+id);
   }
 
@@ -56,7 +56,10 @@ export class UsersController {
     type: UserCreatedDoc,
   })
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return await this.usersService.update(+id, updateUserDto);
   }
 
@@ -66,7 +69,7 @@ export class UsersController {
     type: DeleteUserResponseDoc,
   })
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.remove(+id);
   }
 }
