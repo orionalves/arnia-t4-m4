@@ -1,0 +1,4 @@
+export const loginResponseMock = {
+  token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlZHVzeW5jIiwic3ViIjoiYXV0aCIsImF1ZCI6InVzZXJzIiwiaWQiOjEsImVtYWlsIjoibHVpemFkbUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDUzNjA5ODIsImV4cCI6MTcwNTM2MTU4Mn0.mGW-zrMANAZxuZKPLGvGfKIv1EtRAu8Aw6--d5-oDL0',
+};
