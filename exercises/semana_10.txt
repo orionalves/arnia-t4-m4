@@ -20,3 +20,9 @@ b) Teste o controller de get user by id.
 
 a) Teste o controller de patch users.
 b) Teste o controller de delete users.
+
+18/01.
+
+1- ...
+
+a) Teste o módulo das rotas de users.
