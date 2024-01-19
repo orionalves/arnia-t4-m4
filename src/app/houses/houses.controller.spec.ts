@@ -1,11 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HousesController } from './houses.controller';
 import { HousesService } from './houses.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { House } from '../../databases/entities/House.entity';
 import { UsersService } from '../users/users.service';
 import { userRepositoryMock } from '../../testing/users/user-repository.mock';
 import { jwtServiceMock } from '../../testing/auth/jwt-service.mock';
+import { houseRepositoryMock } from 'src/testing/houses/house-repository.mock';
 
 describe('HousesController', () => {
   let controller: HousesController;
@@ -15,7 +14,7 @@ describe('HousesController', () => {
       controllers: [HousesController],
       providers: [
         HousesService,
-        { provide: getRepositoryToken(House), useValue: {} },
+        houseRepositoryMock,
         UsersService,
         userRepositoryMock,
         jwtServiceMock,
